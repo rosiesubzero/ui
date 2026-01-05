@@ -1,0 +1,12 @@
+docker rm photoprism -f
+docker run --user root -d \
+  --name photoprism \
+  --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
+  -p 2342:2342 \
+  -e PHOTOPRISM_UPLOAD_NSFW="true" \
+  -e PHOTOPRISM_ADMIN_PASSWORD="insecure" \
+  -v /prism:/photoprism/storage:rw \
+  -v /workspaces/ui/fox2/Downloads:/photoprism/originals:rw \
+  -v /workspaces/ui/fox/Downloads:/photoprism/originals:rw \
+  photoprism/photoprism:latest
